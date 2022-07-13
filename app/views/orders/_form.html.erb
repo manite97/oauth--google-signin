@@ -1,0 +1,75 @@
+<%= form_for([@user,@order]) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :user_id, value: @user.id %> 
+  <div id = 'orders'>
+    <%= render partial: "order_lines_form" %>
+  </div>
+  <a href="javascript:;" id="addNewOrderLine" style="margin:10px">Add New Product</a>
+  <div class="actions">
+    <%= f.submit :Submit, class: 'btn btn-success', id: 'create-btn' %>
+  </div>
+<% end %>
+  <div class="hide" id="new_order_lines_form">
+  <%= render partial: "order_lines_form", locals: {order_lines: false} %>
+  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".hide").hide();
+    $("#addNewOrderLine").click(function(){
+    $("#orders").append($("#new_order_lines_form").html());
+    });
+    $("form").submit(function(e) {
+      if( validation() )
+
+      {
+        return ;
+      }
+      else e.preventDefault();
+      $('#create-btn').removeAttr("disabled")
+      return false
+    });
+  });
+
+  function validation(){
+    debugger
+   var inp =  $('.orderLines').find("input")
+
+   for(let i=0; i < inp.length - 2;i = i + 2)
+   {
+     if((inp[i].value == "") || (inp[i+1].value == "")) 
+     {  
+        if(inp[i].parentElement.nextElementSibling == null || inp[i].parentElement.nextElementSibling.className == "orderLines")
+        {
+          $("<span class='text-danger' style = 'margin:10px'>please enter both product name and quantity value</span>").insertAfter(inp[i].parentElement);
+          return false;
+        }
+        else if(inp[i].parentElement.nextElementSibling.innerText =="please enter both product name and quantity value")
+        { 
+          return false;
+        }
+     }
+     else{
+       if( inp[i].parentElement.nextElementSibling.className == 'text-danger'){
+          inp[i].parentElement.nextElementSibling.remove();
+       }
+     }
+   }
+   return true;
+  }
+
+  function removeThis(a)
+  {
+    a.parentElement.remove();
+  }
+</script>

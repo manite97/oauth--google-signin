@@ -1,0 +1,25 @@
+// Place all the styles related to the orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.orderLines{
+	display: flex;
+	margin: 10px;
+}
+.inside{
+	margin-left: 20px;
+}
+.actions{
+	margin: 10px;
+}
+
+.new_order{
+  text-align: justify;
+}
+
+.btn.btn-xs{
+    margin-left: 27px;
+    height: 29px;
+}
+.text-danger{
+	color: red;
+}

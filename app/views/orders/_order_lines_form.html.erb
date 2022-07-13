@@ -1,0 +1,7 @@
+<div class = 'orderLines'>
+    <label for="item_name">Product Name : </label>
+    <%= text_field_tag 'item_name[]' %>
+    <label for="item_quantity" class = "inside">Product Quantity : </label>
+    <%= number_field_tag 'item_quantity[]', nil, min: 1 %>
+    <%= button_tag 'X', class: "btn btn-xs", :onclick => "removeThis(this)" %>
+</div>

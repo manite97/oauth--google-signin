@@ -1,0 +1,60 @@
+
+
+<div>
+<h1>Welcome to Store </h1>
+</div>
+<p id='notice'><%= notice %></p>
+<% if current_user %>
+<div class="wrapper">
+   Logged in as <%= user_email(current_user) %>.
+   <div class="log-out">
+    <%= link_to 'Log Out!!!!!', logout_path, class: "btn stretched-link" %>
+   </div>
+</div>
+<div>
+   <h3> Here are you Order's </h3>
+</div>
+<div>
+<div>
+  <%= link_to 'Create New order', new_user_order_path(current_user.id), class: "btn btn-primary" %>
+</div>
+</div>
+<br/>
+<br/>
+<table class = "table table-bordered table-striped">
+ <thead>
+    <tr>
+       <th>Order ID</th>
+       <th>Created At</th>
+       <th></th>
+       <th></th>
+    </tr>
+ </thead>
+ 
+ <tbody>
+ <%=  will_paginate @orders %> 
+    <% @orders.each do |order| %>
+       
+       <tr>
+          <td><%= order.id %></td>
+          <td><%= order.created_at %></td>
+          <td><%= button_to "View Order", user_order_path(current_user.id,order.id), method: :get, class: "btn btn-success" %></td>
+          <td><%= button_to "Delete",  user_order_path(current_user.id,order.id), method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{order.id}?" %></td>
+       </tr>
+       
+    <% end %>
+ </tbody>
+ 
+</table>
+<% else %>
+
+<a href ="/signup"> Sign up</a>
+<%= link_to 'Sign Up', signup_path %> or 
+<%= link_to 'Log In', login_path %>
+<p> OR </p>
+<%= google_sign_in_button proceed_to: create_login_url do %>
+ Sign in with my <%= image_tag('google_logo.png', alt: 'Google', style: 'height:2vw;width:10vw;margin: 5px;') %> account
+<% end %>
+
+<% end %>
+</div>
