@@ -10,7 +10,6 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    binding.pry
     @order = @user.orders.find(params['id'])
     respond_to do |format|
       format.html { render :show }
@@ -29,7 +28,6 @@ class OrdersController < ApplicationController
     @user =  current_user
     # @user = User.find(params[:user_id])
     @order = @user.orders.new
-    binding.pry
     if @order.save
       params[:item_name].each_with_index do |item_name ,index|
         @order_line = OrderLine.new

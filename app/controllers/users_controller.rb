@@ -30,7 +30,6 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    binding.pry
     @user = User.new(user_params)
     uploaded_io = params[:file]
     File.open(Rails.root.join('app','assets','images', uploaded_io.original_filename), 'wb') do |file|
