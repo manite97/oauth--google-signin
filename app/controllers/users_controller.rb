@@ -32,8 +32,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     uploaded_io = params[:file]
-    File.open(Rails.root.join('app','assets','images', uploaded_io.original_filename), 'wb') do |file|
-      file.write(uploaded_io.read)
+    if uploaded_io.present?
+      File.open(Rails.root.join('app','assets','images', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
     end
     respond_to do |format|
       if @user.save
